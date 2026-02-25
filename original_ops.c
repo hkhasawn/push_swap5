@@ -6,7 +6,7 @@
 /*   By: hkhasawn <hkhasawn@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 17:31:05 by hkhasawn          #+#    #+#             */
-/*   Updated: 2026/02/24 18:23:12 by hkhasawn         ###   ########.fr       */
+/*   Updated: 2026/02/25 18:07:18 by hkhasawn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,29 @@ void	push_stack(t_stack *from, t_stack *to)
 void	rotate_stack(t_stack *stack)
 {
 	t_node	*first;
-	if(!stack || stack -> size < 2)
-		return;
-	first= stack -> top;
-	stack -> top = first -> next;
+
+	if (!stack || stack->size < 2)
+		return ;
+	first = stack->top;
+	stack->top = first->next;
 	stack->tail->next = first;
 	stack->tail = first;
 	first->next = NULL;
+}
+
+void	rrotate_stack(t_stack *stack)
+{
+	t_node	*prev;
+	t_node	*last;
+
+	if (!stack || stack->size < 2)
+		return ;
+	last = stack->tail;
+	prev = stack->top;
+	while (prev->next != stack->tail)
+		prev = prev->next;
+	prev->next = NULL;
+	stack->tail = prev;
+	last->next = stack->top;
+	stack->top = last;
 }
